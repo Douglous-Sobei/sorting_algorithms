@@ -1,5 +1,5 @@
 #include "sort.h"
-#include <stdio.h>
+
 /**
  *_calloc - this is a calloc function
  *@nmemb: number of elemets
