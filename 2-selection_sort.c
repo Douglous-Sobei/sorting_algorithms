@@ -1,31 +1,32 @@
 #include "sort.h"
 
 /**
- * selection_sort - function that sorts an array of integers
- * in ascending order using the Selection sort algorithm
- * @prmArray: pointer to the array of int to sort
- * @prmSize: size of the array
- * Return: nothing void
+ * selection_sort -	sorts an array of integers in ascending order
+ * using the Selection sort algorithm
+ * @array: the array
+ * @size: size of the array
+ * Return: nothing
  */
-
-void selection_sort(int *prmArray, size_t prmSize)
+void selection_sort(int *array, size_t size)
 {
-	size_t cLoop1, cLoop2, cLoopMin;
-	int tmp, *array = prmArray;
+	int i, j, siz = size, min, temp;
 
-	if (prmArray == NULL || prmSize < 2)
-		return;
-
-	for (cLoop1 = 0; cLoop1 < prmSize; cLoop1++)
+	for (i = 0; i < siz - 1; i++)
 	{
-		cLoopMin = cLoop1;
-		for (cLoop2 = cLoop1; cLoop2 < prmSize; cLoop2++)
-			if (array[cLoop2] < array[cLoopMin])
-				cLoopMin = cLoop2;
-		tmp = prmArray[cLoop1];
-		array[cLoop1] = prmArray[cLoopMin];
-		array[cLoopMin] = tmp;
-		if (cLoopMin != cLoop1)
-			print_array(array, prmSize);
+	min = i;
+	for (j = i + 1; j < siz; j++)
+	{
+	if (array[j] < array[min])
+	{
+	min = j;
+	}
+	}
+	if (min != i)
+	{
+	temp = array[min];
+	array[min] = array[i];
+	array[i] = temp;
+	print_array(array, size);
+	}
 	}
 }
