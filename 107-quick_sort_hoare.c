@@ -1,62 +1,85 @@
 #include "sort.h"
 /**
-  * quick_sort_hoare - quicksort algorithm
-  * @array: array to be sorted
-  * @size: size of array
-  */
+* quick_sort_hoare - function that sorts an array of integers
+* in ascending order using the Quick sort algorithm
+* @array: pointer to the array to sort
+* @size: size of the array
+* Return: nothing void
+*/
 void quick_sort_hoare(int *array, size_t size)
 {
-	sort_alg(array, 0, size - 1, size);
-}
-
-/**
-  * sort_alg - sorting algorithm
-  * @arr: array
-  * @left: leftmost index
-  * @right: rightmost index
-  * @size: size of full array
-  */
-void sort_alg(int *arr, int left, int right, size_t size)
-{
-	int pivot;
-
-	if ((right - left) < 2)
+	if (array == NULL || size < 2)
 		return;
-	pivot = split(arr, left, right, size);
-	sort_alg(arr, left, pivot, size);
-	sort_alg(arr, pivot, right, size);
+
+	quicksort_hoare(array, 0, size - 1, size);
 }
 
 /**
-  * split - pivot and split
-  * @arr: array
-  * @left: leftmost index
-  * @right:rightmost index
-  * @size: size of full index
-  * Return: pivot index
-  */
-int split(int *arr, int left, int right, size_t size)
+* quicksort_hoare - function that sorts an array of integers
+* in ascending order using the Quick sort algorithm
+* @array: pointer to the array to sort
+* @low: start of the array
+* @high: end of the array
+* @size: size of the array
+* Return: nothing void
+*/
+void quicksort_hoare(int *array, int low, int high, size_t size)
 {
-	int i, i2, pivot, tmp;
+	int index;
 
-	pivot = arr[right];
-	i = left;
-	i2 = right;
+	if (low < high)
+	{
+		index = partition_hoare(array, low, high, size);
+		quicksort_hoare(array, low, index - 1, size);
+		quicksort_hoare(array, index, high, size);
+	}
+}
+
+/**
+* swap - function that swap value
+* @a: pointer to the first value
+* @b: pointer to the second value
+* Return: nothing void
+*/
+void swap(int *a, int *b)
+{
+	int tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+/**
+* partition_hoare - function that partition an array of int
+* and swap the value
+* @array: array to partition
+* @low: beggining of the array
+* @high: end of the array
+* @size: size of the array
+* Return: returns the nwes index oh the value
+*/
+int partition_hoare(int *array, int low, int high, size_t size)
+{
+	int pivot = array[high];
+	int i = low - 1;
+	int j = high + 1;
 
 	while (1)
 	{
-		do i++;
-		while (arr[i] < pivot);
-		do i2--;
-		while (arr[i2] > pivot);
-		if (i < i2)
+		do {
+			i += 1;
+		} while (array[i] < pivot);
+		do {
+			j -= 1;
+		} while (array[j] > pivot);
+		if (i >= j)
+			return (i);
+		if (i != j)
 		{
-			tmp = arr[i2];
-			arr[i2] = arr[i];
-			arr[i] = tmp;
-			print_array(arr, size);
+			swap(&array[i], &array[j]);
+			print_array(array, size);
 		}
-		else
-			return (i2);
 	}
+	return (0);
 }

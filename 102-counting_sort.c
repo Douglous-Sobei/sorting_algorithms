@@ -43,4 +43,4 @@ void counting_sort(int *prmArray, size_t prmSize)
 
 	free(B);
 	free(tmp);
-}i
+}
